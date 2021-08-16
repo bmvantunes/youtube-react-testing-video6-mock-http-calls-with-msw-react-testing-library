@@ -1,0 +1,33 @@
+.listItem {
+  display: flex;
+  flex-direction: row;
+  margin: 1rem;
+  border: 1px solid grey;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.photo {
+  margin-right: 1rem;
+}
+
+.error {
+  background: rgb(211, 55, 55);
+  color: white;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.loading {
+  background: rgb(192, 192, 192);
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.absolute {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
