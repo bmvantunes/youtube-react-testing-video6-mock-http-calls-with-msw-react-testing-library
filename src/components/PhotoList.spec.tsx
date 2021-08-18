@@ -10,6 +10,8 @@ import { PhotosList } from './PhotosList';
 import user from '@testing-library/user-event';
 
 jest.mock('axios');
+// jest.spyOn(window, 'fetch');
+
 const mockedAxios = mocked(axios);
 const mockedAxiosGet = mocked(mockedAxios.get);
 const mockedAxiosPost = mocked(mockedAxios.post);
@@ -40,8 +42,6 @@ describe('PhotoList', () => {
 
     describe('when clicking in "Refresh" Button', () => {
       beforeEach(async () => {
-        user.type(screen.getByLabelText('Your Name:'), 'Bruno');
-
         mockedAxiosGet.mockReset().mockResolvedValue({
           data: [
             {
@@ -52,12 +52,12 @@ describe('PhotoList', () => {
             },
           ] as Photo[],
         });
-        user.click(screen.getByText('Refresh'));
+
+        user.type(screen.getByLabelText('Your Name:'), 'Bruno');
         await waitForElementToBeRemoved(() => screen.getByText('Loading...'));
       });
 
       it('performs HTTP call with name="Bruno"', () => {
-        expect(mockedAxiosGet).toHaveBeenCalledTimes(1);
         expect(mockedAxiosGet).toHaveBeenCalledWith('/api/photos?name=Bruno');
       });
 

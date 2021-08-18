@@ -26,13 +26,13 @@ export function PhotosList() {
 }
 
 function List({ refresh, name }: { refresh: number; name: string }) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(0);
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [error, setError] = useState('');
 
   useEffect(() => {
     async function load() {
-      setLoading(true);
+      setLoading((l) => l + 1);
 
       try {
         const r = await axios.get<Photo[]>(`/api/photos?name=${name}`);
@@ -42,12 +42,12 @@ function List({ refresh, name }: { refresh: number; name: string }) {
         // eslint-disable-next-line
         setError(e.response.data.message);
       } finally {
-        setLoading(false);
+        setLoading((l) => l - 1);
       }
     }
 
     // async function load() {
-    //   setLoading(true);
+    //   setLoading(l => l+1);
 
     //   try {
     //     const r = await fetch(`/api/photos?name=${name}`);
@@ -62,7 +62,7 @@ function List({ refresh, name }: { refresh: number; name: string }) {
     //   } catch (e) {
     //     setError(e.message);
     //   } finally {
-    //     setLoading(false);
+    //     setLoading(l => l-1);
     //   }
     // }
 
